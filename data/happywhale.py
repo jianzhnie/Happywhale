@@ -20,6 +20,6 @@ class HappyWhaleDataset(Dataset):
         label = self.labels[index]
 
         if self.transforms:
-            img = self.transforms(image=img)["image"]
+            img = self.transforms(image=img)['image']
 
         return {'image': img, 'label': torch.tensor(label, dtype=torch.long)}

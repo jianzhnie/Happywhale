@@ -2,9 +2,10 @@
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
+from ..config.config import CONFIG
 
 data_transforms = {
-    "train":
+    'train':
     A.Compose([
         A.Resize(CONFIG['img_size'], CONFIG['img_size']),
         A.ShiftScaleRotate(
@@ -22,7 +23,7 @@ data_transforms = {
         ToTensorV2()
     ],
               p=1.),
-    "valid":
+    'valid':
     A.Compose([
         A.Resize(CONFIG['img_size'], CONFIG['img_size']),
         A.Normalize(mean=[0.485, 0.456, 0.406],
