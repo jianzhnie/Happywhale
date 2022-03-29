@@ -8,10 +8,9 @@ Description:
 '''
 
 import pandas as pd
+import pytorch_lightning as pl
 from timm.data.transforms_factory import create_transform
 from torch.utils.data import DataLoader
-
-import pytorch_lightning as pl
 
 from .happywhale import HappyWhaleDataset
 
