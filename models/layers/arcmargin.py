@@ -1,4 +1,13 @@
+'''
+Author: jianzhnie
+Date: 2022-03-29 11:11:54
+LastEditTime: 2022-03-29 11:24:34
+LastEditors: jianzhnie
+Description:
+
+'''
 import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -36,7 +45,7 @@ class ArcMarginProduct(nn.Module):
         self.th = math.cos(math.pi - m)
         self.mm = math.sin(math.pi - m) * m
 
-    def forward(self, input, label):
+    def forward(self, input, label, device='cuda'):
         # --------------------------- cos(theta) & phi(theta) ---------------------
         cosine = F.linear(F.normalize(input), F.normalize(self.weight))
         sine = torch.sqrt(1.0 - torch.pow(cosine, 2))
@@ -47,7 +56,7 @@ class ArcMarginProduct(nn.Module):
             phi = torch.where(cosine > self.th, phi, cosine - self.mm)
         # --------------------------- convert label to one-hot ---------------------
         # one_hot = torch.zeros(cosine.size(), requires_grad=True, device='cuda')
-        one_hot = torch.zeros(cosine.size(), device=CONFIG['device'])
+        one_hot = torch.zeros(cosine.size(), device=device)
         one_hot.scatter_(1, label.view(-1, 1).long(), 1)
         if self.ls_eps > 0:
             one_hot = (1 -
