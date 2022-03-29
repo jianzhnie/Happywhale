@@ -1,9 +1,9 @@
-import torch
+import timm
 import torch.nn as nn
-import torch.nn.functional as F
+
+from ..config.config import CONFIG
 from .layers.arcmargin import ArcMarginProduct
 from .layers.gem import GeM
-import timm
 
 
 class HappyWhaleModel(nn.Module):
@@ -16,11 +16,11 @@ class HappyWhaleModel(nn.Module):
         self.pooling = GeM()
         self.embedding = nn.Linear(in_features, embedding_size)
         self.fc = ArcMarginProduct(embedding_size,
-                                   CONFIG["num_classes"],
-                                   s=CONFIG["s"],
-                                   m=CONFIG["m"],
-                                   easy_margin=CONFIG["ls_eps"],
-                                   ls_eps=CONFIG["ls_eps"])
+                                   CONFIG['num_classes'],
+                                   s=CONFIG['s'],
+                                   m=CONFIG['m'],
+                                   easy_margin=CONFIG['ls_eps'],
+                                   ls_eps=CONFIG['ls_eps'])
 
     def forward(self, images, labels):
         features = self.model(images)
