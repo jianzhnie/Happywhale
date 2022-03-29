@@ -7,12 +7,11 @@ Description:
 
 '''
 
+import pytorch_lightning as pl
 import timm
 import torch
 import torch.nn as nn
 from timm.optim import create_optimizer_v2
-
-import pytorch_lightning as pl
 
 from ..losses.focalloss import FocalLoss
 from .layers.arcmargin import ArcMarginProduct
