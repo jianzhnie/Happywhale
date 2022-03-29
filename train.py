@@ -10,11 +10,10 @@ import os
 
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import StratifiedKFold
-from sklearn.preprocessing import LabelEncoder
-
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
+from sklearn.model_selection import StratifiedKFold
+from sklearn.preprocessing import LabelEncoder
 
 from .data.lightingdata import LitDataModule
 from .models.lighting_model import LitModule
