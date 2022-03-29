@@ -1,25 +1,39 @@
-import cv2
+'''
+Author: jianzhnie
+Date: 2022-03-29 11:11:54
+LastEditTime: 2022-03-29 11:43:19
+LastEditors: jianzhnie
+Description:
+
+'''
 import torch
+from PIL import Image
 from torch.utils.data import Dataset
 
 
 class HappyWhaleDataset(Dataset):
-    def __init__(self, df, transforms=None):
+    def __init__(self, df, transform=None):
         self.df = df
-        self.file_names = df['file_path'].values
-        self.labels = df['individual_id'].values
-        self.transforms = transforms
+        self.transform = transform
+        self.image_names = self.df['image'].values
+        self.image_paths = self.df['image_path'].values
+        self.targets = self.df['individual_id'].values
+
+    def __getitem__(self, index):
+        # 图片名字
+        image_name = self.image_names[index]
+        # 图片路径
+        image_path = self.image_paths[index]
+
+        image = Image.open(image_path)
+
+        if self.transform:
+            image = self.transform(image)
+
+        target = self.targets[index]
+        target = torch.tensor(target, dtype=torch.long)
+
+        return {'image_name': image_name, 'image': image, 'target': target}
 
     def __len__(self):
         return len(self.df)
-
-    def __getitem__(self, index):
-        img_path = self.file_names[index]
-        img = cv2.imread(img_path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        label = self.labels[index]
-
-        if self.transforms:
-            img = self.transforms(image=img)['image']
-
-        return {'image': img, 'label': torch.tensor(label, dtype=torch.long)}
