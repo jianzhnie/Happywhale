@@ -7,13 +7,12 @@ Description:
 
 '''
 
+from typing import Callable, Dict, Optional
+
 import pandas as pd
 import torch
 from PIL import Image
 from torch.utils.data import Dataset
-from typing import Optional
-from typing import Callable
-from typing import Dict
 
 
 class HappyWhaleDataset(Dataset):
@@ -21,9 +20,9 @@ class HappyWhaleDataset(Dataset):
         self.df = df
         self.transform = transform
 
-        self.image_names = self.df["image"].values
-        self.image_paths = self.df["image_path"].values
-        self.targets = self.df["individual_id"].values
+        self.image_names = self.df['image'].values
+        self.image_paths = self.df['image_path'].values
+        self.targets = self.df['individual_id'].values
 
     def __getitem__(self, index: int) -> Dict[str, torch.Tensor]:
         # 图片名字
@@ -39,7 +38,7 @@ class HappyWhaleDataset(Dataset):
         target = self.targets[index]
         target = torch.tensor(target, dtype=torch.long)
 
-        return {"image_name": image_name, "image": image, "target": target}
+        return {'image_name': image_name, 'image': image, 'target': target}
 
     def __len__(self) -> int:
         return len(self.df)
