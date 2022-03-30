@@ -13,8 +13,9 @@ import torch
 import torch.nn as nn
 from timm.optim import create_optimizer_v2
 
-from .layers.arcmargin import ArcMarginProduct
 from ..losses.focalloss import FocalLoss
+from .layers.arcmargin import ArcMarginProduct
+
 
 class LitModule(pl.LightningModule):
     def __init__(self, model_name, pretrained, drop_rate, embedding_size,
