@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 18:16:39
-LastEditTime: 2022-03-30 14:48:02
+LastEditTime: 2022-03-30 14:58:19
 LastEditors: jianzhnie
 Description:
 
@@ -14,10 +14,14 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
 
 
-def get_data(root_dir, image_dir, df_path, n_fold=3):
+def get_image_path(id: str, dir: str) -> str:
+    return f'{dir / id}'
+
+
+def get_data(root_dir, img_dir, df_path, n_fold=3):
     df = pd.read_csv(f'{root_dir}/{df_path}')
 
-    df['image_path'] = root_dir + '/' + image_dir + '/' + df['image']
+    df['image_path'] = df['image'].apply(get_image_path, dir=img_dir)
 
     encoder = LabelEncoder()
     df['individual_id'] = encoder.fit_transform(df['individual_id'])
@@ -31,7 +35,7 @@ def get_data(root_dir, image_dir, df_path, n_fold=3):
 
 def train_data_clean(root_dir, img_dir, file_name):
     df = pd.read_csv(os.path.join(root_dir, file_name))
-    df['image_path'] = root_dir + '/' + img_dir + '/' + df['image']
+    df['image_path'] = df['image'].apply(get_image_path, dir=img_dir)
     df['split'] = 'Train'
     # convert beluga, globis to whales
     df.loc[df.species.str.contains('beluga'), 'species'] = 'beluga_whale'
@@ -55,6 +59,7 @@ def test_data_clean(root_dir, img_dir, file_name):
 
     test_df = pd.read_csv(os.path.join(root_dir, file_name))
     test_df['image_path'] = root_dir + '/' + img_dir + '/' + test_df['image']
+    test_df['individual_id'] = 0
     test_df['split'] = 'Test'
     return test_df
 
