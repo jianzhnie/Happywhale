@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 11:34:27
-LastEditTime: 2022-03-30 17:28:11
+LastEditTime: 2022-03-30 17:53:27
 LastEditors: jianzhnie
 Description:
 
@@ -145,7 +145,7 @@ def train(train_csv_file,
           image_size=256,
           batch_size=64,
           num_workers=4,
-          model_name='tf_efficientnet_b0',
+          model_name='resnet50',
           pretrained=True,
           drop_rate=0.0,
           embedding_size=512,
@@ -162,7 +162,7 @@ def train(train_csv_file,
           auto_lr_find=False,
           auto_scale_batch_size=False,
           fast_dev_run=False,
-          gpus=4,
+          gpus=1,
           max_epochs=100,
           precision=16,
           stochastic_weight_avg=True,
@@ -246,4 +246,5 @@ if __name__ == '__main__':
           model_name=args.model_name,
           image_size=args.image_size,
           batch_size=args.batch_size,
+          pretrained=args.pretrained,
           checkpoint_dir=args.checkpoint_dir)

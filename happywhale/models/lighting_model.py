@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 11:25:36
-LastEditTime: 2022-03-30 17:06:40
+LastEditTime: 2022-03-30 18:47:38
 LastEditors: jianzhnie
 Description:
 
@@ -29,6 +29,8 @@ class LitModule(pl.LightningModule):
         self.model = timm.create_model(model_name,
                                        pretrained=pretrained,
                                        drop_rate=drop_rate)
+
+        # self.model = models.__dict__[model_name](pretrained=True)
         self.embedding = nn.Linear(self.model.get_classifier().in_features,
                                    embedding_size)
         self.model.reset_classifier(num_classes=0, global_pool='avg')
@@ -59,6 +61,8 @@ class LitModule(pl.LightningModule):
             lr=self.hparams.learning_rate,
             weight_decay=self.hparams.weight_decay,
         )
+
+        # optimizer = torch.optim.SGD()
 
         # 学习率调整
         scheduler = torch.optim.lr_scheduler.OneCycleLR(
