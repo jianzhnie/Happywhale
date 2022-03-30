@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 11:34:27
-LastEditTime: 2022-03-30 17:20:30
+LastEditTime: 2022-03-30 17:28:11
 LastEditors: jianzhnie
 Description:
 
@@ -50,7 +50,7 @@ def parse_args():
                         metavar='N',
                         help='number of total epochs to run')
     parser.add_argument('--image-size',
-                        default=None,
+                        default=256,
                         type=int,
                         help='resolution of image')
     parser.add_argument('-b',
