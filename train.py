@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 11:34:27
-LastEditTime: 2022-03-29 11:40:13
+LastEditTime: 2022-03-30 09:46:56
 LastEditors: jianzhnie
 Description:
 
@@ -71,8 +71,8 @@ if __name__ == '__main__':
     test_df.to_csv(test_csv_path, index=False)
     test_df.head()
 
-    def train(train_csv_encoded_folded=str(train_csv_encoded_folded_path),
-              test_csv=str(test_csv_path),
+    def train(train_csv_encoded_folded=train_csv_encoded_folded_path,
+              test_csv=test_csv_path,
               val_fold=0.0,
               image_size=256,
               batch_size=64,
@@ -89,7 +89,7 @@ if __name__ == '__main__':
               optimizer='adam',
               learning_rate=3e-4,
               weight_decay=1e-6,
-              checkpoints_dir=str(checkpoints_dir),
+              checkpoints_dir=checkpoints_dir,
               accumulate_grad_batches=1,
               auto_lr_find=False,
               auto_scale_batch_size=False,

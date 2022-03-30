@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 11:25:36
-LastEditTime: 2022-03-29 11:26:43
+LastEditTime: 2022-03-30 09:52:12
 LastEditors: jianzhnie
 Description:
 
@@ -13,9 +13,8 @@ import torch
 import torch.nn as nn
 from timm.optim import create_optimizer_v2
 
-from ..losses.focalloss import FocalLoss
 from .layers.arcmargin import ArcMarginProduct
-
+from ..losses.focalloss import FocalLoss
 
 class LitModule(pl.LightningModule):
     def __init__(self, model_name, pretrained, drop_rate, embedding_size,
@@ -41,7 +40,7 @@ class LitModule(pl.LightningModule):
             ls_eps=arc_ls_eps,
         )
 
-        #         self.loss_fn = F.cross_entropy
+        # self.loss_fn = F.cross_entropy
         self.loss_fn = FocalLoss()
 
     def forward(self, images):
