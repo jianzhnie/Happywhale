@@ -3,7 +3,7 @@ Author: jianzhnie
 Date: 2022-03-29 19:12:38
 LastEditTime: 2022-03-29 19:17:34
 LastEditors: jianzhnie
-Description: 
+Description:
 
 '''
 
@@ -19,7 +19,7 @@ def fetch_scheduler(optimizer, scheduler, T_max, T_0, min_lr):
         scheduler = lr_scheduler.CosineAnnealingWarmRestarts(optimizer,
                                                              T_0=T_0,
                                                              eta_min=min_lr)
-    elif scheduler == None:
+    elif scheduler is None:
         return None
 
     return scheduler
