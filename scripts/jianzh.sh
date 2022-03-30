@@ -1,7 +1,7 @@
 ###
  # @Author: jianzhnie
  # @Date: 2022-03-30 16:09:45
- # @LastEditTime: 2022-03-30 17:29:09
+ # @LastEditTime: 2022-03-30 17:45:35
  # @LastEditors: jianzhnie
  # @Description:
  #
@@ -15,5 +15,4 @@ python train.py \
 --image-size 256 \
 --epochs 10 \
 --lr 0.01 \
---batch-size 32 \
---pretrained
+--batch-size 32
