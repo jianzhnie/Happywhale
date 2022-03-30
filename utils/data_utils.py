@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 18:16:39
-LastEditTime: 2022-03-29 19:09:28
+LastEditTime: 2022-03-30 08:39:46
 LastEditors: jianzhnie
 Description:
 
@@ -31,7 +31,7 @@ def get_data(root_dir, image_dir, df_path, n_fold=3):
 
 if __name__ == '__main__':
     root_dir = '/media/robin/DATA/datatsets/image_data/happywhale'
-    img_dir = 'train_images/'
+    img_dir = 'train_images'
     df_path = 'train.csv'
 
     df = get_data(root_dir, img_dir, df_path)
