@@ -17,6 +17,5 @@ class GeM(nn.Module):
                             (x.size(-2), x.size(-1))).pow(1. / p)
 
     def __repr__(self):
-        return self.__class__.__name__ + \
-                '(' + 'p=' + '{:.4f}'.format(self.p.data.tolist()[0]) + \
-                ', ' + 'eps=' + str(self.eps) + ')'
+        return self.__class__.__name__ + '(' + 'p=' + '{:.4f}'.format(
+            self.p.data.tolist()[0]) + ', ' + 'eps=' + str(self.eps) + ')'
