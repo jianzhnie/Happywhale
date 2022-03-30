@@ -1,7 +1,7 @@
 '''
 Author: jianzhnie
 Date: 2022-03-29 18:16:39
-LastEditTime: 2022-03-30 08:39:46
+LastEditTime: 2022-03-30 14:48:02
 LastEditors: jianzhnie
 Description:
 
@@ -27,6 +27,36 @@ def get_data(root_dir, image_dir, df_path, n_fold=3):
     for fold, (_, val_) in enumerate(skf.split(X=df, y=df.individual_id)):
         df.loc[val_, 'kfold'] = fold
     return df
+
+
+def train_data_clean(root_dir, img_dir, file_name):
+    df = pd.read_csv(os.path.join(root_dir, file_name))
+    df['image_path'] = root_dir + '/' + img_dir + '/' + df['image']
+    df['split'] = 'Train'
+    # convert beluga, globis to whales
+    df.loc[df.species.str.contains('beluga'), 'species'] = 'beluga_whale'
+    df.loc[df.species.str.contains('globis'),
+           'species'] = 'short_finned_pilot_whale'
+    df.loc[df.species.str.contains('pilot_whale'),
+           'species'] = 'short_finned_pilot_whale'
+    df['class'] = df.species.map(lambda x: 'whale'
+                                 if 'whale' in x else 'dolphin')
+
+    # fix duplicate labels
+    # https://www.kaggle.com/c/happy-whale-and-dolphin/discussion/304633
+    df['species'] = df['species'].str.replace('bottlenose_dolpin',
+                                              'bottlenose_dolphin')
+    df['species'] = df['species'].str.replace('kiler_whale', 'killer_whale')
+
+    return df
+
+
+def test_data_clean(root_dir, img_dir, file_name):
+
+    test_df = pd.read_csv(os.path.join(root_dir, file_name))
+    test_df['image_path'] = root_dir + '/' + img_dir + '/' + test_df['image']
+    test_df['split'] = 'Test'
+    return test_df
 
 
 if __name__ == '__main__':
