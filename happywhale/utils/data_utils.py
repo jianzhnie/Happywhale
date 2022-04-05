@@ -36,6 +36,16 @@ def get_train_data(root_dir, img_dir, df_path, n_fold=3):
 def train_data_clean(root_dir, img_dir, file_name):
     df = pd.read_csv(os.path.join(root_dir, file_name))
     df['split'] = 'Train'
+    # fix duplicate labels
+    # https://www.kaggle.com/competitions/happy-whale-and-dolphin/discussion/305574
+    # df.species.replace(
+    #     {
+    #         "globis": "short_finned_pilot_whale",
+    #         "pilot_whale": "short_finned_pilot_whale",
+    #         "kiler_whale": "killer_whale",
+    #         "bottlenose_dolpin": "bottlenose_dolphin"
+    #     },
+    #     inplace=True)
     # convert beluga, globis to whales
     df.loc[df.species.str.contains('beluga'), 'species'] = 'beluga_whale'
     df.loc[df.species.str.contains('globis'),
