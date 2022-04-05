@@ -19,8 +19,8 @@ from sklearn.preprocessing import LabelEncoder, normalize
 from torch.utils.data import DataLoader
 from tqdm.notebook import tqdm
 
-from .data.lightingdata import LitDataModule
-from .models.lighting_model import LitModule
+from happywhale.data.lightingdata import LitDataModule
+from happywhale.models.lighting_model import LitModule
 
 
 def load_eval_module(checkpoint_path: str, device: torch.device) -> LitModule:
